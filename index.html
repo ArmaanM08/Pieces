@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Facts Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #1a73e8;
+            margin-bottom: 2rem;
+        }
+
+        .fact-box {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #fact-text {
+            color: #333;
+            line-height: 1.6;
+        }
+
+        #generate-btn {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        #generate-btn:hover {
+            background-color: #1557b0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Random Facts Generator</h1>
+        <div class="fact-box">
+            <p id="fact-text">Click the button to generate a random fact!</p>
+        </div>
+        <button id="generate-btn">Generate Fact</button>
+    </div>
+
+    <script>
+        // Array of random facts
+        const facts = [
+            "The first computer mouse was made of wood.",
+            "The first computer virus was created in 1983.",
+            "The first computer programmer was Ada Lovelace.",
+            "The first website is still online.",
+            "JavaScript was created in 10 days.",
+            "The first computer game was created in 1961.",
+            "The QWERTY keyboard was designed to slow typing.",
+            "The first computer password was created in 1961."
+        ];
+
+        // Get DOM elements
+        const factText = document.getElementById('fact-text');
+        const generateBtn = document.getElementById('generate-btn');
+
+        // Function to generate random fact
+        function generateFact() {
+            // Get random index
+            const randomIndex = Math.floor(Math.random() * facts.length);
+            
+            // Add fade-out effect
+            factText.style.opacity = '0';
+            
+            // Update text and fade in after a short delay
+            setTimeout(() => {
+                factText.textContent = facts[randomIndex];
+                factText.style.opacity = '1';
+            }, 300);
+        }
+
+        // Add click event listener to button
+        generateBtn.addEventListener('click', generateFact);
+
+        // Add transition effect to fact text
+        factText.style.transition = 'opacity 0.3s ease';
+    </script>
+</body>
+</html>
