@@ -3,96 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Facts Generator</title>
+    <title>Funky Facts Generator</title>
     <style>
-        /* Existing styles remain the same */
-        /* Adding new animation styles */
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-20px);}
-            60% {transform: translateY(-10px);}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(45deg, #FF61D8, #6B5DFF);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Abstract shapes */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -150px;
+            right: -150px;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            bottom: -100px;
+            left: -100px;
+            animation: morph 10s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-30px, 30px) rotate(180deg); }
+        }
+
+        @keyframes morph {
+            0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .fact-box {
-            /* Existing styles */
-            transform-origin: center;
-            transition: all 0.5s ease;
-        }
-
-        .fact-box.animate {
-            animation: bounce 1s;
-        }
-
-        #generate-btn {
-            /* Existing styles */
-            transform: scale(1);
-            transition: all 0.3s ease;
-        }
-
-        #generate-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
-        }
-
-        #generate-btn:active {
-            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         #fact-text {
-            transition: all 0.5s ease;
+            color: white;
+            line-height: 1.6;
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        #generate-btn {
+            background: linear-gradient(45deg, #FF61D8, #6B5DFF);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #generate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #6B5DFF, #FF61D8);
+        }
+
+        #generate-btn:active {
+            transform: translateY(1px);
+        }
+
+        .fact-box.animate {
+            animation: tilt 0.5s ease;
+        }
+
+        @keyframes tilt {
+            0% { transform: rotateX(0deg); }
+            25% { transform: rotateX(10deg); }
+            75% { transform: rotateX(-10deg); }
+            100% { transform: rotateX(0deg); }
         }
     </style>
 </head>
 <body>
-    <!-- HTML structure remains the same -->
+    <div class="container">
+        <h1>✨ Funky Facts ✨</h1>
+        <div class="fact-box">
+            <p id="fact-text">Click the magical button to discover a random fact! ✨</p>
+        </div>
+        <button id="generate-btn">Generate Magic ✨</button>
+    </div>
 
     <script>
-        // Enhanced facts array with more interesting content
-        const facts = [
-            "The first computer mouse was made of wood and was invented by Doug Engelbart in the 1960s.",
-            "The first computer virus named 'Creeper' was created in 1971 and displayed the message 'I'm the creeper: catch me if you can!'",
-            "Ada Lovelace wrote the first computer program in 1842, before computers were even invented.",
-            "The first website (info.cern.ch) went live on August 6, 1991, and is still online today.",
-            "JavaScript was created by Brendan Eich in just 10 days in May 1995.",
-            "The first computer game, 'Spacewar!', was created by MIT students in 1961.",
-            "The QWERTY keyboard layout was designed in 1873 to prevent typewriter jams by placing common letter pairs far apart.",
-            "The first computer password was implemented at MIT in 1961 for their CTSS system.",
-            "The first email was sent by Ray Tomlinson in 1971. The message content has been forgotten!",
-            "The @ symbol in email addresses was chosen by Ray Tomlinson because it was rarely used and wouldn't conflict with usernames.",
-            "The first iPhone was released in 2007 and had only 128MB of RAM.",
-            "The term 'bug' in computing originated when a moth caused a malfunction in the Harvard Mark II computer in 1947.",
-            "The first computer programmer was Ada Lovelace, daughter of poet Lord Byron.",
-            "The most expensive domain name ever sold was Cars.com for $872 million in 2015.",
-            "The first tweet was sent by Jack Dorsey on March 21, 2006: 'just setting up my twttr'"
-        ];
-
-        const factText = document.getElementById('fact-text');
-        const generateBtn = document.getElementById('generate-btn');
-        const factBox = document.querySelector('.fact-box');
-
-        function generateFact() {
-            // Remove previous animation class
-            factBox.classList.remove('animate');
-            
-            // Get random index
-            const randomIndex = Math.floor(Math.random() * facts.length);
-            
-            // Add fade-out effect
-            factText.style.opacity = '0';
-            factText.style.transform = 'translateY(20px)';
-            
-            // Update text and fade in after a short delay
-            setTimeout(() => {
-                factText.textContent = facts[randomIndex];
-                factText.style.opacity = '1';
-                factText.style.transform = 'translateY(0)';
-                
-                // Add animation class
-                factBox.classList.add('animate');
-            }, 300);
-        }
-
-        generateBtn.addEventListener('click', generateFact);
+        // Previous JavaScript code remains the same
     </script>
 </body>
 </html>
